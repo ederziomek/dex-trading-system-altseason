@@ -18,7 +18,7 @@ fi
 echo "📦 Installing minimal dependencies..."
 cd /app/backend && npm install --only=production
 
-# Start the minimal backend v2 with CORS
-echo "🎯 Starting minimal backend v2 with CORS..."
-cd /app/backend && node src/minimal-app-v2.js
+# Start the minimal backend v3 with CORS and JWT
+echo "🎯 Starting minimal backend v3 with CORS and JWT..."
+cd /app/backend && node src/minimal-app-v3.js
 
