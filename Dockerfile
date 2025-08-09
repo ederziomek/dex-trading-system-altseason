@@ -33,6 +33,8 @@ RUN mkdir -p logs
 ENV NODE_ENV=production
 ENV PORT=3001
 ENV PATH="/app/venv/bin:$PATH"
+ENV JWT_SECRET=railway-default-jwt-secret-change-in-production
+ENV FRONTEND_URL=*
 
 # Expose port
 EXPOSE 3001
