@@ -22,7 +22,10 @@ class App {
         this.server = createServer(this.app);
         this.io = new Server(this.server, {
             cors: {
-                origin: process.env.FRONTEND_URL || "http://localhost:3000",
+                origin: [
+                    process.env.FRONTEND_URL || "http://localhost:3000",
+                    "http://localhost:5173" // Vite dev server
+                ],
                 methods: ["GET", "POST"]
             }
         });
@@ -49,7 +52,10 @@ class App {
         
         // CORS
         this.app.use(cors({
-            origin: process.env.FRONTEND_URL || "http://localhost:3000",
+            origin: [
+                process.env.FRONTEND_URL || "http://localhost:3000",
+                "http://localhost:5173" // Vite dev server
+            ],
             credentials: true
         }));
         

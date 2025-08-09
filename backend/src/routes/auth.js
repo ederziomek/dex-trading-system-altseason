@@ -10,7 +10,7 @@ const users = [
         id: 1,
         username: 'admin',
         email: 'ederziomek@upbet.com',
-        password: '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj/RK.s5uO8G', // password123
+        password: '$2a$12$BAt4z31de46013YetlRcHueEs5ECjUAiLdtE8oqiV72DrENiHh1zO', // password123
         role: 'admin',
         createdAt: new Date().toISOString()
     }
