@@ -2,7 +2,7 @@
 FROM node:18-alpine AS base
 
 # Install Python and dependencies
-RUN apk add --no-cache python3 py3-pip python3-dev build-base
+RUN apk add --no-cache python3 py3-pip python3-dev build-base py3-virtualenv
 
 # Set working directory
 WORKDIR /app
@@ -17,9 +17,11 @@ RUN npm install
 COPY backend/package*.json ./backend/
 RUN cd backend && npm install
 
-# Copy trading engine requirements and install Python dependencies
+# Create Python virtual environment and install dependencies
 COPY trading-engine/requirements.txt ./trading-engine/
-RUN cd trading-engine && pip3 install -r requirements.txt
+RUN python3 -m venv /app/venv
+RUN /app/venv/bin/pip install --upgrade pip
+RUN /app/venv/bin/pip install -r trading-engine/requirements.txt
 
 # Copy all source code
 COPY . .
@@ -30,6 +32,7 @@ RUN mkdir -p logs
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3001
+ENV PATH="/app/venv/bin:$PATH"
 
 # Expose port
 EXPOSE 3001
@@ -38,6 +41,9 @@ EXPOSE 3001
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:3001/api/health || exit 1
 
+# Make start script executable
+RUN chmod +x start.sh
+
 # Start command
-CMD ["npm", "run", "start:backend"]
+CMD ["./start.sh"]
 
