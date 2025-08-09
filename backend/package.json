@@ -4,8 +4,9 @@
   "description": "Backend API para Sistema de Trading DEX - Altseason Edition",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
+    "start": "node src/minimal-app.js",
+    "start:full": "node src/app.js",
+    "dev": "nodemon src/minimal-app.js",
     "build": "echo 'Build completed'",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -33,24 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "helmet": "^7.1.0",
-    "compression": "^1.7.4",
-    "express-rate-limit": "^7.1.5",
-    "socket.io": "^4.7.4",
-    "jsonwebtoken": "^9.0.2",
-    "bcryptjs": "^2.4.3",
-    "dotenv": "^16.3.1",
-    "axios": "^1.6.2",
-    "winston": "^3.11.0",
-    "joi": "^17.11.0",
-    "prisma": "^5.7.1",
-    "@prisma/client": "^5.7.1",
-    "mongodb": "^6.3.0",
-    "redis": "^4.6.11",
-    "web3": "^4.3.0",
-    "@solana/web3.js": "^1.87.6",
-    "ethers": "^6.9.0"
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
