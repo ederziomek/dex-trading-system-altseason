@@ -455,3 +455,130 @@ class TradingEngine:
             'capital_usdt': self.settings.capital_usdt
         }
 
+
+    # Métodos adicionais para API
+    
+    async def get_status(self) -> dict:
+        """Retorna status atual do engine (versão async)"""
+        return {
+            'active': self.active,
+            'active_trades': len(self.active_trades),
+            'daily_pnl': self.daily_pnl,
+            'consecutive_losses': self.consecutive_losses,
+            'capital_usdt': self.settings.capital_usdt,
+            'total_trades': getattr(self, 'total_trades', 0),
+            'win_rate': getattr(self, 'win_rate', 0.0)
+        }
+    
+    async def execute_trade(self, pair: str, side: str, amount: float, 
+                          price: Optional[float] = None, dex: str = '1inch',
+                          chain_id: int = 1, slippage: float = 1.0) -> dict:
+        """Executa um trade via API"""
+        try:
+            # Cria sinal de trade
+            signal = {
+                'symbol': pair,
+                'type': side,
+                'price': price or 0,
+                'amount': amount,
+                'confidence': 1.0,
+                'dex': dex,
+                'chain_id': chain_id,
+                'slippage': slippage
+            }
+            
+            # Valida com risk manager
+            if not await self.risk_manager.validate_trade(signal, self.active_trades):
+                return {
+                    'success': False,
+                    'error': 'Trade rejected by risk manager',
+                    'trade_id': None
+                }
+            
+            # Gera ID único para o trade
+            trade_id = str(uuid.uuid4())
+            
+            # Simula execução do trade (em produção, usar 1inch real)
+            trade_result = {
+                'trade_id': trade_id,
+                'pair': pair,
+                'side': side,
+                'amount': amount,
+                'price': price,
+                'status': 'pending',
+                'timestamp': datetime.now().isoformat()
+            }
+            
+            # Adiciona aos trades ativos
+            self.active_trades[trade_id] = trade_result
+            
+            # Log do trade
+            logger.info(f"Trade executed via API: {pair} {side} {amount}")
+            
+            # Simula execução assíncrona
+            asyncio.create_task(self._simulate_trade_execution(trade_id))
+            
+            return {
+                'success': True,
+                'trade_id': trade_id,
+                'status': 'pending',
+                'result': trade_result
+            }
+            
+        except Exception as e:
+            logger.error(f"Error executing trade via API: {e}")
+            return {
+                'success': False,
+                'error': str(e),
+                'trade_id': None
+            }
+    
+    async def _simulate_trade_execution(self, trade_id: str):
+        """Simula execução assíncrona do trade"""
+        await asyncio.sleep(2)  # Simula delay de execução
+        
+        if trade_id in self.active_trades:
+            trade = self.active_trades[trade_id]
+            trade['status'] = 'completed'
+            trade['executed_price'] = trade['price'] or 2500
+            trade['executed_amount'] = trade['amount'] * 0.99  # Simula slippage
+            trade['fees'] = trade['amount'] * 0.003
+            trade['tx_hash'] = f"0x{uuid.uuid4().hex[:64]}"
+            
+            logger.info(f"Trade {trade_id} completed")
+    
+    async def get_portfolio(self) -> dict:
+        """Retorna portfolio atual"""
+        try:
+            total_value = self.settings.capital_usdt
+            positions = []
+            
+            # Calcula posições baseado nos trades ativos
+            for trade_id, trade in self.active_trades.items():
+                if trade['status'] == 'completed':
+                    positions.append({
+                        'pair': trade['pair'],
+                        'amount': trade.get('executed_amount', trade['amount']),
+                        'avg_price': trade.get('executed_price', trade['price']),
+                        'side': trade['side'],
+                        'pnl': 0.0  # Calcular PnL real
+                    })
+            
+            return {
+                'total_value': total_value,
+                'positions': positions,
+                'pnl': self.daily_pnl,
+                'active': self.active,
+                'last_updated': datetime.now().isoformat()
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting portfolio: {e}")
+            return {
+                'total_value': 0,
+                'positions': [],
+                'pnl': 0.0,
+                'active': False,
+                'error': str(e)
+            }
+

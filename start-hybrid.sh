@@ -1,0 +1,57 @@
+#!/bin/bash
+
+echo "🚀 Starting DEX Trading System (Hybrid Mode - Node.js + Python)..."
+
+# Set environment variables for Railway
+export NODE_ENV=production
+export PORT=${PORT:-3001}
+export PYTHONPATH=/app/trading-engine
+
+echo "🔧 Environment: $NODE_ENV"
+echo "🌐 Port: $PORT"
+echo "🐍 Python Path: $PYTHONPATH"
+
+# Check if directories exist
+if [ ! -d "/app/backend" ]; then
+    echo "❌ Backend directory not found!"
+    exit 1
+fi
+
+if [ ! -d "/app/trading-engine" ]; then
+    echo "❌ Trading Engine directory not found!"
+    exit 1
+fi
+
+echo "📦 Installing Node.js dependencies..."
+cd /app/backend && npm install --only=production
+
+echo "🐍 Checking Python dependencies..."
+cd /app/trading-engine && pip list | head -10
+
+# Start Trading Engine API Server in background
+echo "🤖 Starting Trading Engine API Server..."
+cd /app/trading-engine && python api_server.py &
+TRADING_ENGINE_PID=$!
+
+# Wait a moment for Trading Engine to initialize
+sleep 5
+
+# Start the Node.js backend v6 with Python integration
+echo "🎯 Starting Node.js backend v6 with Python integration..."
+cd /app/backend && node src/minimal-app-v6.js &
+BACKEND_PID=$!
+
+# Function to handle shutdown
+shutdown() {
+    echo "🛑 Shutting down services..."
+    kill $BACKEND_PID 2>/dev/null
+    kill $TRADING_ENGINE_PID 2>/dev/null
+    exit 0
+}
+
+# Trap signals
+trap shutdown SIGTERM SIGINT
+
+# Wait for processes
+wait $BACKEND_PID
+
