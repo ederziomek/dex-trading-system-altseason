@@ -137,3 +137,89 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# =============================================================================
+# DEX TRADING SYSTEM SPECIFIC
+# =============================================================================
+
+# Environment & Secrets
+.env.credentials
+*.pem
+*.key
+*.crt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.sql.backup
+*.bson
+
+# Trading Specific
+private_keys/
+wallets/
+*.wallet
+*.keystore
+trading_data/
+backtest_results/
+*.csv.backup
+*.json.backup
+
+# ML Models
+models/
+*.pkl
+*.joblib
+*.h5
+*.pb
+
+# Monitoring & Analytics
+monitoring/data/
+grafana/data/
+prometheus/data/
+
+# Deployment
+.railway/
+.vercel/
+.netlify/
+
+# Backup Files
+*.backup
+*.bak
+*.old
+*.orig
+
+# Temporary Files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
