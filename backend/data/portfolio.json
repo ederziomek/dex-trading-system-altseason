@@ -1,9 +1,9 @@
 {
   "userId": 1,
   "totalInvested": 10000,
-  "totalValue": 15968.384345999999,
-  "totalPnL": 5968.384345999999,
-  "totalPnLPercent": 59.683843459999984,
+  "totalValue": 16000.05692915,
+  "totalPnL": 6000.05692915,
+  "totalPnLPercent": 60.00056929149999,
   "createdAt": "2025-08-10T01:31:57.319Z",
-  "lastUpdated": "2025-08-10T01:32:54.169Z"
+  "lastUpdated": "2025-08-10T01:40:03.886Z"
 }

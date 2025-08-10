@@ -12,5 +12,19 @@
     "createdAt": "2025-08-10T01:32:43.158Z",
     "executedAt": "2025-08-10T01:32:43.158Z",
     "txHash": "0x7940f2e081732"
+  },
+  {
+    "id": 1754789998215,
+    "pair": "ADA/USDT",
+    "side": "buy",
+    "amount": 50,
+    "price": 0.809779,
+    "totalCost": 40.48895,
+    "fee": 0.12146685000000002,
+    "dex": "1inch",
+    "status": "completed",
+    "createdAt": "2025-08-10T01:39:58.215Z",
+    "executedAt": "2025-08-10T01:39:58.215Z",
+    "txHash": "0x6b5ed20086e41"
   }
 ]
