@@ -28,7 +28,7 @@ RUN cd backend && npm install --only=production
 
 # Copy and build frontend
 COPY dex-trading-frontend/package*.json ./dex-trading-frontend/
-RUN cd dex-trading-frontend && npm install
+RUN cd dex-trading-frontend && npm install --legacy-peer-deps
 
 COPY dex-trading-frontend/ ./dex-trading-frontend/
 RUN cd dex-trading-frontend && npm run build
