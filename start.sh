@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Starting DEX Trading System v9 (Real Portfolio Management)..."
+echo "🚀 Starting DEX Trading System v10 (Security & Risk Management)..."
 
 # Set environment variables for Railway
 export NODE_ENV=production
@@ -36,9 +36,9 @@ TRADING_ENGINE_PID=$!
 # Wait a moment for Trading Engine to initialize
 sleep 5
 
-# Start the Node.js backend v9 with Real Portfolio Management
-echo "🎯 Starting Node.js backend v9 (Real Portfolio + Market Data)..."
-cd /app/backend && node src/minimal-app-v9.js &
+# Start the Node.js backend v10 with Security & Risk Management
+echo "🎯 Starting Node.js backend v10 (Security + Risk Management + Portfolio)..."
+cd /app/backend && node src/minimal-app-v10.js &
 BACKEND_PID=$!
 
 # Function to handle shutdown
