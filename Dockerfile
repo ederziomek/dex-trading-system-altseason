@@ -36,7 +36,7 @@ RUN cd dex-trading-frontend && npm run build
 # Copy all source code
 COPY backend/ ./backend/
 COPY trading-engine/ ./trading-engine/
-COPY start-hybrid.sh ./
+COPY start.sh ./
 
 # Create logs directory
 RUN mkdir -p logs trading-engine/logs
@@ -47,7 +47,7 @@ ENV PORT=3001
 ENV PYTHONPATH=/app/trading-engine
 
 # Make start script executable
-RUN chmod +x start-hybrid.sh
+RUN chmod +x start.sh
 
 # Expose port
 EXPOSE 3001
@@ -57,5 +57,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3001/api/health || exit 1
 
 # Start command
-CMD ["./start-hybrid.sh"]
+CMD ["./start.sh"]
 
