@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1754789563158,
+    "pair": "ETH/USDT",
+    "side": "buy",
+    "amount": 0.1,
+    "price": 4297.18,
+    "totalCost": 429.7180000000001,
+    "fee": 1.2891540000000004,
+    "dex": "1inch",
+    "status": "completed",
+    "createdAt": "2025-08-10T01:32:43.158Z",
+    "executedAt": "2025-08-10T01:32:43.158Z",
+    "txHash": "0x7940f2e081732"
+  }
+]
