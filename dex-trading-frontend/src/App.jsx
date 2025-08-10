@@ -319,8 +319,8 @@ function App() {
               )}
             </CardHeader>
             <CardContent>
-              <div className={`text-2xl font-bold ${dashboardData.daily_pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                ${dashboardData.daily_pnl.toFixed(2)}
+              <div className={`text-2xl font-bold ${(dashboardData.daily_pnl || 0) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                ${(dashboardData.daily_pnl || 0).toFixed(2)}
               </div>
               <p className="text-xs text-muted-foreground">Today's performance</p>
             </CardContent>
@@ -332,7 +332,7 @@ function App() {
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{(dashboardData.win_rate * 100).toFixed(1)}%</div>
+              <div className="text-2xl font-bold">{((dashboardData.win_rate || 0) * 100).toFixed(1)}%</div>
               <p className="text-xs text-muted-foreground">Success rate</p>
             </CardContent>
           </Card>
@@ -420,8 +420,8 @@ function App() {
                   <div className="text-sm text-muted-foreground">Total Value</div>
                 </div>
                 <div className="text-center">
-                  <div className={`text-2xl font-bold ${portfolio.pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    ${portfolio.pnl.toFixed(2)}
+                  <div className={`text-2xl font-bold ${(portfolio.pnl || 0) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    ${(portfolio.pnl || 0).toFixed(2)}
                   </div>
                   <div className="text-sm text-muted-foreground">Unrealized P&L</div>
                 </div>
@@ -442,10 +442,10 @@ function App() {
                           {position.side} • {position.amount} @ ${position.avg_price}
                         </div>
                       </div>
-                      <div className={`text-right ${position.pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        <div className="font-medium">${position.pnl.toFixed(2)}</div>
+                      <div className={`text-right ${(position.pnl || 0) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                        <div className="font-medium">${(position.pnl || 0).toFixed(2)}</div>
                         <div className="text-sm">
-                          {position.pnl >= 0 ? '+' : ''}{((position.pnl / (position.amount * position.avg_price)) * 100).toFixed(2)}%
+                          {(position.pnl || 0) >= 0 ? '+' : ''}{(((position.pnl || 0) / ((position.amount || 1) * (position.avg_price || 1))) * 100).toFixed(2)}%
                         </div>
                       </div>
                     </div>
