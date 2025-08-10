@@ -31,6 +31,7 @@ COPY dex-trading-frontend/package*.json ./dex-trading-frontend/
 RUN cd dex-trading-frontend && npm install --legacy-peer-deps
 
 COPY dex-trading-frontend/ ./dex-trading-frontend/
+RUN ls -la dex-trading-frontend/src/lib/ && cat dex-trading-frontend/src/lib/utils.js
 RUN cd dex-trading-frontend && npm run build
 
 # Copy all source code
