@@ -36,9 +36,9 @@ TRADING_ENGINE_PID=$!
 # Wait a moment for Trading Engine to initialize
 sleep 5
 
-# Start the Node.js backend v6 with Python integration
-echo "🎯 Starting Node.js backend v6 with Python integration..."
-cd /app/backend && node src/minimal-app-v6.js &
+# Start the Node.js backend v7 with React frontend serving
+echo "🎯 Starting Node.js backend v7 (Full Stack with React Frontend)..."
+cd /app/backend && node src/minimal-app-v7.js &
 BACKEND_PID=$!
 
 # Function to handle shutdown

@@ -26,6 +26,13 @@ RUN npm install --only=production
 COPY backend/package*.json ./backend/
 RUN cd backend && npm install --only=production
 
+# Copy and build frontend
+COPY dex-trading-frontend/package*.json ./dex-trading-frontend/
+RUN cd dex-trading-frontend && npm install
+
+COPY dex-trading-frontend/ ./dex-trading-frontend/
+RUN cd dex-trading-frontend && npm run build
+
 # Copy all source code
 COPY backend/ ./backend/
 COPY trading-engine/ ./trading-engine/
